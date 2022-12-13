@@ -24,9 +24,19 @@ class FirstScreenViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToSecondScreen" {
             if let secondVC = segue.destination as? SecondScreenViewController {
-                
+                secondVC.delegate = self
             }
         }
+    }
+    
+}
+
+//MARK: - SecondScreenViewControllerDelegate
+
+extension FirstScreenViewController: SecondScreenViewControllerDelagate {
+    
+    func sendMessageToLabel(message: String) {
+        myTestLabel.text = message
     }
     
 }

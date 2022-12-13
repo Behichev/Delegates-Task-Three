@@ -7,10 +7,16 @@
 
 import UIKit
 
+protocol SecondScreenViewControllerDelagate {
+    func sendMessageToLabel(message: String)
+}
+
 class SecondScreenViewController: UIViewController {
     
     @IBOutlet weak var delegateTestTableView: UITableView!
     @IBOutlet weak var myTextField: UITextField!
+    
+    var delegate: SecondScreenViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +51,17 @@ extension SecondScreenViewController: UITableViewDataSource {
 //MARK: - UITextField Delegate
 
 extension SecondScreenViewController: UITextFieldDelegate {
+   
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        myTextField.endEditing(true)
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField.text {
+            delegate.sendMessageToLabel(message: text)
+        }
+    }
     
 }
 

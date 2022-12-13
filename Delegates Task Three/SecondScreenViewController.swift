@@ -16,7 +16,7 @@ class SecondScreenViewController: UIViewController {
     @IBOutlet weak var delegateTestTableView: UITableView!
     @IBOutlet weak var myTextField: UITextField!
     
-    var delegate: SecondScreenViewController?
+    var delegate: SecondScreenViewControllerDelagate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +27,7 @@ class SecondScreenViewController: UIViewController {
     @IBAction func backButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true)
     }
+    
 }
 
 //MARK: - UITableView Data Source
@@ -59,7 +60,7 @@ extension SecondScreenViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = textField.text {
-            delegate.sendMessageToLabel(message: text)
+            delegate?.sendMessageToLabel(message: text)
         }
     }
     

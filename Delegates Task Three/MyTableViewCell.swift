@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SwitchStatmentDelegate {
-    func showSwitchState(switchStatement: Bool ) -> [String]
+    func showSwitchState(switchStatement: Bool )
 }
 
 class MyTableViewCell: UITableViewCell {

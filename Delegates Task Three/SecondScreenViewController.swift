@@ -9,6 +9,7 @@ import UIKit
 
 protocol SecondScreenViewControllerDelagate {
     func sendMessageToLabel(message: String)
+    func configureTextView(text: [String])
 }
 
 class SecondScreenViewController: UIViewController {
@@ -22,6 +23,7 @@ class SecondScreenViewController: UIViewController {
         super.viewDidLoad()
         delegateTestTableView.dataSource = self
         myTextField.delegate = self
+        
     }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
@@ -70,7 +72,7 @@ extension SecondScreenViewController: UITextFieldDelegate {
 
 extension SecondScreenViewController: SwitchStatmentDelegate {
     
-    func showSwitchState(switchStatement: Bool) -> [String] {
+    func showSwitchState(switchStatement: Bool) {
         var array: [String] = []
         
         if switchStatement == true {
@@ -78,8 +80,8 @@ extension SecondScreenViewController: SwitchStatmentDelegate {
         } else {
             array.append("is Off")
         }
-        
-        return array
+        print(array)
+        delegate?.configureTextView(text: array)
         
     }
     

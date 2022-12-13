@@ -39,6 +39,16 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
         myTestLabel.text = message
     }
     
+    func configureTextView(text: [String]) {
+        var textElement = ""
+        
+        for a in text {
+            textElement =  textElement + a + "\n"
+        }
+        
+        myTestTextView.text = textElement
+    }
+    
 }
 
 /*

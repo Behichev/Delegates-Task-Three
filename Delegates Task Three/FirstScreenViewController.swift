@@ -43,12 +43,12 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
         var textArray: [String] = []
         
         for (key, value) in text {
-            textArray.append("\(key + 1). \(value)")
+            textArray.append("\(key). \(value)")
         }
 
         var textElement = ""
-        
-        for a in textArray {
+       
+        for a in textArray.sorted(by: {$0 < $1}) {
             textElement =  textElement + a + "\n"
         }
         

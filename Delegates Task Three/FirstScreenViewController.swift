@@ -39,10 +39,16 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
         myTestLabel.text = message
     }
     
-    func configureTextView(text: [String]) {
+    func configureTextView(text: [Int:String]) {
+        var textArray: [String] = []
+        
+        for (key, value) in text {
+            textArray.append("\(key + 1). \(value)")
+        }
+
         var textElement = ""
         
-        for a in text {
+        for a in textArray {
             textElement =  textElement + a + "\n"
         }
         
@@ -69,4 +75,7 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
 
  Sasha_A, [12 груд. 2022 р., 10:45:53]:
  Ещё можно на первом добавить UISwitch который активирует работу или по делегатам или по замыканию) я ещё несколько усложнений придумал, но можно начать хотя бы с этого
+ 
+ 
+ Ну и подсказка, что бы дело пошло быстрее, в словаре сразу должно быть 10 значений, изначально все off, и при нажатии нужный ключ меняется на противоположный
  */

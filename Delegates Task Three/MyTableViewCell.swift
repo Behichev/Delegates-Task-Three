@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SwitchStatmentDelegate {
-    func showSwitchState(switchStatement: Bool )
+    func showSwitchState(cell: MyTableViewCell, switchState: Bool)
 }
 
 class MyTableViewCell: UITableViewCell {
@@ -16,16 +16,14 @@ class MyTableViewCell: UITableViewCell {
     @IBOutlet weak var mySwitch: UISwitch!
     
     var delegate: SwitchStatmentDelegate?
-    
+   
     override func awakeFromNib() {
         super.awakeFromNib()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        delegate?.showSwitchState(switchStatement: mySwitch.isOn)
+        delegate?.showSwitchState(cell: self, switchState: mySwitch.isOn)
     }
-    
-    
     
 }

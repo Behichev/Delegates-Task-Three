@@ -9,7 +9,7 @@ import UIKit
 
 protocol SecondScreenViewControllerDelagate {
     func sendMessageToLabel(message: String)
-    func configureTextView(text: [String])
+    func configureTextView(text: [Int:String])
 }
 
 class SecondScreenViewController: UIViewController {
@@ -18,6 +18,8 @@ class SecondScreenViewController: UIViewController {
     @IBOutlet weak var myTextField: UITextField!
     
     var delegate: SecondScreenViewControllerDelagate?
+    var testArray: [String] = []
+    var nonLocalDict: [Int:String] = [0:"off", 1:"off", 2:"off", 3:"off", 4:"off", 5:"off", 6:"off", 7:"off", 8:"off", 9:"off"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,7 @@ class SecondScreenViewController: UIViewController {
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true)
+        
     }
     
 }
@@ -35,7 +38,7 @@ class SecondScreenViewController: UIViewController {
 //MARK: - UITableView Data Source
 
 extension SecondScreenViewController: UITableViewDataSource {
-   
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         10
     }
@@ -54,7 +57,7 @@ extension SecondScreenViewController: UITableViewDataSource {
 //MARK: - UITextField Delegate
 
 extension SecondScreenViewController: UITextFieldDelegate {
-   
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         myTextField.endEditing(true)
         return true
@@ -72,16 +75,23 @@ extension SecondScreenViewController: UITextFieldDelegate {
 
 extension SecondScreenViewController: SwitchStatmentDelegate {
     
-    func showSwitchState(switchStatement: Bool) {
-        var array: [String] = []
+    func showSwitchState(cell: MyTableViewCell, switchState: Bool){
+    
+        guard let numberOfRow = delegateTestTableView.indexPath(for: cell)?.row else { return }
+    
+            let mySwitch: String = {
+                if switchState {
+                    return "On"
+                } else {
+                    return "Off"
+                }
+            }()
         
-        if switchStatement == true {
-            array.append("is On")
-        } else {
-            array.append("is Off")
-        }
-        print(array)
-        delegate?.configureTextView(text: array)
+        nonLocalDict[numberOfRow] = mySwitch
+        print(nonLocalDict)
+        
+        
+        delegate?.configureTextView(text: nonLocalDict)
         
     }
     

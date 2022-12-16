@@ -18,6 +18,7 @@ class SecondScreenViewController: UIViewController {
     @IBOutlet weak var myTextField: UITextField!
     
     var delegate: SecondScreenViewControllerDelagate?
+    
     var nonLocalDict: [Int:String] = [:]
     
     override func viewDidLoad() {

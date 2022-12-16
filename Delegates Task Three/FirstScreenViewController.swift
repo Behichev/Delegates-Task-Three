@@ -12,7 +12,9 @@ class FirstScreenViewController: UIViewController {
     @IBOutlet weak var myTestTextView: UITextView!
     @IBOutlet weak var myTestLabel: UILabel!
     
-    var dict: [Int:String] = [0:"Off", 1:"Off", 2:"Off", 3:"Off", 4:"Off", 5:"Off", 6:"Off", 7:"Off", 8:"Off", 9:"Off"]
+    var dict: [Int:String] = [
+        0:"Off", 1:"Off", 2:"Off", 3:"Off", 4:"Off", 5:"Off", 6:"Off", 7:"Off", 8:"Off", 9:"Off"
+    ]
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +47,8 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
         var textArray: [String] = []
        
         dict = text
-        print(dict)
-        for (key, value) in text {
+        
+        for (key, value) in dict {
             textArray.append("\(key). \(value)")
         }
 

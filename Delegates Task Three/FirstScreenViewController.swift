@@ -12,8 +12,8 @@ class FirstScreenViewController: UIViewController {
     @IBOutlet weak var myTestTextView: UITextView!
     @IBOutlet weak var myTestLabel: UILabel!
     
-    var dict: [Int:String] = [
-        0:"Off", 1:"Off", 2:"Off", 3:"Off", 4:"Off", 5:"Off", 6:"Off", 7:"Off", 8:"Off", 9:"Off"
+    var dict: [Int:Bool] = [
+        0:false, 1:false, 2:false, 3:false, 4:false, 5:false, 6:false, 7:false, 8:false, 9:false
     ]
    
     override func viewDidLoad() {
@@ -47,13 +47,18 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
         myTestLabel.text = message
     }
     
-    func configureTextView(text: [Int:String]) {
+    func configureTextView(text: [Int:Bool]) {
         var textArray: [String] = []
        
         dict = text
         
         for (key, value) in dict {
-            textArray.append("\(key). \(value)")
+            if value {
+                textArray.append("\(key). is On")
+            } else {
+                textArray.append("\(key). is Off")
+            }
+            
         }
 
         var textElement = ""

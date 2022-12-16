@@ -6,19 +6,16 @@
 //
 
 import UIKit
-protocol TestSwitchDelegate {
-    func testSwitchValueChanged(_ : UISwitch)
-}
+
 class FirstScreenViewController: UIViewController {
 
     @IBOutlet weak var myTestTextView: UITextView!
     @IBOutlet weak var myTestLabel: UILabel!
     
-    var delegate: TestSwitchDelegate?
-    
+    var dict: [Int:String] = [0:"Off", 1:"Off", 2:"Off", 3:"Off", 4:"Off", 5:"Off", 6:"Off", 7:"Off", 8:"Off", 9:"Off"]
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func goButtonPressed(_ sender: UIButton) {
@@ -29,6 +26,7 @@ class FirstScreenViewController: UIViewController {
         if segue.identifier == "goToSecondScreen" {
             if let secondVC = segue.destination as? SecondScreenViewController {
                 secondVC.delegate = self
+                secondVC.nonLocalDict = dict
             }
         }
     }
@@ -45,9 +43,11 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
     
     func configureTextView(text: [Int:String]) {
         var textArray: [String] = []
-        
+       
+        dict = text
+        print(dict)
         for (key, value) in text {
-            textArray.append("\(key). \(del)")
+            textArray.append("\(key). \(value)")
         }
 
         var textElement = ""
@@ -60,26 +60,3 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
     }
     
 }
-
-/*
- Sasha_A, [12 груд. 2022 р., 10:28:15]:
- на первом экране есть лейба и text view, на втором экране есть text field и таблица
- когда на втором экране меняется text field, это летит сразу на первый экран в лейбу
-
- на первом в text view изначально, например, 10 строк, такого формата:
- 1: off
- 2: off
- и т.д.,
- они показываютс изначальное состояние UISwitch в каждой ячейке на втором экране
- когда на втором экране меняется какой-то UISwitch, то на первом моментально обновляется этот список, например включил второй, на первом сразу стало 2: on
-
- ну и когда вернулся на первый, увидел каке-то состояние списка, что, например, второй включен, то при переходе на экран с таблицей, и там второй тоже сразу должен быть активирован
-
- потом еще сильнее можно усложнить задачу, логически есть два экрана, и один список состояний, и на первом экране еще есть UISegmentedControl у которого три состояния, табилца, коллекция, стеквью, и в зависимости от того что нажато на первом экране, при переходе на второй такой UI элемент и будет отображать список (но при этом всегда работать через один делегат)
-
- Sasha_A, [12 груд. 2022 р., 10:45:53]:
- Ещё можно на первом добавить UISwitch который активирует работу или по делегатам или по замыканию) я ещё несколько усложнений придумал, но можно начать хотя бы с этого
- 
- 
- Ну и подсказка, что бы дело пошло быстрее, в словаре сразу должно быть 10 значений, изначально все off, и при нажатии нужный ключ меняется на противоположный
- */

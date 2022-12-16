@@ -93,7 +93,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i7a-Em-jha">
                                                     <rect key="frame" x="16" y="3.9999999999999982" width="51" height="31.333333333333329"/>
                                                     <connections>
-                                                        <action selector="switchChanged:" destination="1w7-fl-DBH" eventType="valueChanged" id="LxL-I3-GMC"/>
+                                                        <action selector="valueChanged:" destination="1w7-fl-DBH" eventType="valueChanged" id="0g4-3W-UMe"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>

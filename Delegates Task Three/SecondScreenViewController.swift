@@ -18,7 +18,7 @@ class SecondScreenViewController: UIViewController {
     @IBOutlet weak var myTextField: UITextField!
     
     var delegate: SecondScreenViewControllerDelagate?
-    var nonLocalDict: [Int:String] = [0:"off", 1:"off", 2:"off", 3:"off", 4:"off", 5:"off", 6:"off", 7:"off", 8:"off", 9:"off"]
+    var nonLocalDict: [Int:String] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,6 @@ class SecondScreenViewController: UIViewController {
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true)
-        
     }
     
 }
@@ -44,6 +43,13 @@ extension SecondScreenViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell") as? MyTableViewCell {
             cell.delegate = self
+            let newArray = Array(nonLocalDict.values).sorted(by: { $0 < $1 })
+            let value = newArray[indexPath.row]
+            if value == "Off" {
+                cell.mySwitch.setOn(false, animated: true)
+            } else {
+                cell.mySwitch.setOn(true, animated: true)
+            }
             return cell
         }
         return UITableViewCell()
@@ -74,7 +80,6 @@ extension SecondScreenViewController: UITextFieldDelegate {
 extension SecondScreenViewController: SwitchStatmentDelegate {
     
     func showSwitchState(cell: MyTableViewCell, switchState: Bool){
-    
         guard let numberOfRow = delegateTestTableView.indexPath(for: cell)?.row else { return }
     
             let mySwitch: String = {
@@ -86,7 +91,6 @@ extension SecondScreenViewController: SwitchStatmentDelegate {
             }()
         
         nonLocalDict[numberOfRow] = mySwitch
-        print(nonLocalDict)
         
         delegate?.configureTextView(text: nonLocalDict)
         

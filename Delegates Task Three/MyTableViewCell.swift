@@ -16,20 +16,22 @@ class MyTableViewCell: UITableViewCell {
     @IBOutlet weak var mySwitch: UISwitch!
     
     var delegate: SwitchStatmentDelegate?
-   
+
     override func awakeFromNib() {
         super.awakeFromNib()
+       
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         delegate?.showSwitchState(cell: self, switchState: mySwitch.isOn)
+       
     }
     
-    @IBAction func switchChanged(_ sender: Any) {
-        
+    @IBAction func valueChanged(_ sender: UISwitch) {
+        delegate?.showSwitchState(cell: self, switchState: mySwitch.isOn)
     }
+    
 }
 
-//MARK: - CheckSwitchStatementDelegate
 

@@ -49,10 +49,8 @@ extension SecondScreenViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell") as? MyTableViewCell {
             cell.delegate = self
-            if configuration?.nonLocalDict[indexPath.row] == false {
-                cell.configure(with: false)
-            } else {
-                cell.configure(with: true)
+            if let state = configuration?.nonLocalDict[indexPath.row] {
+                cell.configure(with: state, for: indexPath.row)
             }
             return cell
         }
@@ -82,14 +80,9 @@ extension SecondScreenViewController: UITextFieldDelegate {
 //MARK: - SwitchStatmentDelegate
 
 extension SecondScreenViewController: SwitchStatmentDelegate {
-    
-    func showSwitchState(cell: MyTableViewCell, switchState: Bool){
-        guard let numberOfRow = delegateTestTableView.indexPath(for: cell)?.row else { return }
-        
-        configuration?.nonLocalDict[numberOfRow] = switchState
+    func changeSwitchState(index: Int, switchState: Bool) {
+        configuration?.nonLocalDict[index] = switchState
         delegate?.configureTextView(text: configuration?.nonLocalDict ?? [:])
-        
-        
     }
     
 }

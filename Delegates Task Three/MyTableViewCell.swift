@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SwitchStatmentDelegate {
-    func showSwitchState(cell: MyTableViewCell, switchState: Bool)
+    func changeSwitchState(index: Int, switchState: Bool)
 }
 
 class MyTableViewCell: UITableViewCell {
@@ -16,28 +16,30 @@ class MyTableViewCell: UITableViewCell {
     @IBOutlet weak private var mySwitch: UISwitch!
  
     var delegate: SwitchStatmentDelegate?
-
+    
+    private var cellIndex: Int?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
     }
    
-    func configure(with state: Bool) {
+    func configure(with state: Bool, for index: Int) {
             if state {
-                mySwitch.setOn(true, animated: true)
+                mySwitch.setOn(state, animated: true)
             } else {
-                mySwitch.setOn(false, animated: true)
+                mySwitch.setOn(state, animated: true)
             }
+        cellIndex = index
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        delegate?.showSwitchState(cell: self, switchState: mySwitch.isOn)
        
     }
     
-    @IBAction func valueChanged(_ sender: UISwitch) {
-        delegate?.showSwitchState(cell: self, switchState: mySwitch.isOn)
+    @IBAction private func valueChanged(_ sender: UISwitch) {
+        delegate?.changeSwitchState(index: cellIndex ?? 0, switchState: mySwitch.isOn)
     }
     
 }

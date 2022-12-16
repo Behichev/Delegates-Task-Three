@@ -12,7 +12,7 @@ class FirstScreenViewController: UIViewController {
     @IBOutlet weak private var myTestTextView: UITextView!
     @IBOutlet weak private var myTestLabel: UILabel!
     
-    var switchStateDictionary = [
+    private var switchStateDictionary = [
         0:false, 1:false, 2:false, 3:false, 4:false, 5:false, 6:false, 7:false, 8:false, 9:false
     ]
     
@@ -28,9 +28,8 @@ class FirstScreenViewController: UIViewController {
         if segue.identifier == "goToSecondScreen" {
             if let secondVC = segue.destination as? SecondScreenViewController {
                 secondVC.delegate = self
-                var configuration = SecondViewControllerConfiguration()
-                configuration.nonLocalDict = switchStateDictionary
-                configuration.textForTexfield = myTestLabel.text
+                let configuration = SecondViewControllerConfiguration(nonLocalDict: switchStateDictionary,
+                                                                      textForTexfield: myTestLabel.text ?? "Label")
                 secondVC.configure(with: configuration)
             }
         }

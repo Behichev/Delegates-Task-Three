@@ -8,16 +8,18 @@
 import UIKit
 
 class FirstScreenViewController: UIViewController {
-
+    
     @IBOutlet weak private var myTestTextView: UITextView!
     @IBOutlet weak private var myTestLabel: UILabel!
-   
-    var firstVCConfigurator = FirstScreenViewControllerConfigurator()
+    
+    var switchStateDictionary = [
+        0:false, 1:false, 2:false, 3:false, 4:false, 5:false, 6:false, 7:false, 8:false, 9:false
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     @IBAction func goButtonPressed(_ sender: UIButton) {
         self.performSegue(withIdentifier: "goToSecondScreen", sender: self)
     }
@@ -26,10 +28,10 @@ class FirstScreenViewController: UIViewController {
         if segue.identifier == "goToSecondScreen" {
             if let secondVC = segue.destination as? SecondScreenViewController {
                 secondVC.delegate = self
-                secondVC.secondVCConfigurator.nonLocalDict = firstVCConfigurator.dictionary
-                if myTestLabel.text != nil {
-                    secondVC.secondVCConfigurator.textForTexfield = myTestLabel.text
-                }
+                var configuration = SecondViewControllerConfiguration()
+                configuration.nonLocalDict = switchStateDictionary
+                configuration.textForTexfield = myTestLabel.text
+                secondVC.configure(with: configuration)
             }
         }
     }
@@ -46,10 +48,10 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
     
     func configureTextView(text: [Int:Bool]) {
         var textArray: [String] = []
-       
-        firstVCConfigurator.dictionary = text
         
-        for (key, value) in firstVCConfigurator.dictionary {
+        switchStateDictionary = text
+        
+        for (key, value) in switchStateDictionary {
             if value {
                 textArray.append("\(key). is On")
             } else {
@@ -57,9 +59,9 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
             }
             
         }
-
+        
         var textElement = ""
-       
+        
         for a in textArray.sorted(by: { $0 < $1 }) {
             textElement =  textElement + a + "\n"
         }

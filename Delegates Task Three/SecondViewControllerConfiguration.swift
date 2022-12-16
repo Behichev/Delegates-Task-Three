@@ -10,5 +10,4 @@ import Foundation
 struct SecondViewControllerConfiguration {
     var nonLocalDict: [Int:Bool] = [:]
     var textForTexfield: String?
-    
 }

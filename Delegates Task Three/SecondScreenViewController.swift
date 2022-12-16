@@ -14,24 +14,22 @@ protocol SecondScreenViewControllerDelagate {
 
 class SecondScreenViewController: UIViewController {
     
-    @IBOutlet weak var delegateTestTableView: UITableView!
+    @IBOutlet weak private var delegateTestTableView: UITableView!
     @IBOutlet weak private var myTextField: UITextField!
     
     var delegate: SecondScreenViewControllerDelagate?
     
-    var secondVCConfigurator = SecondViewControllerConfiguration()
+    private var configuration: SecondViewControllerConfiguration?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         delegateTestTableView.dataSource = self
         myTextField.delegate = self
-        configure(for: secondVCConfigurator)
+        myTextField.text = configuration?.textForTexfield
     }
     
-    func configure(for secondVC: SecondViewControllerConfiguration) {
-        if secondVC.textForTexfield != nil {
-            myTextField.text = secondVC.textForTexfield
-        }
+    func configure(with configuration: SecondViewControllerConfiguration) {
+        self.configuration = configuration
     }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
@@ -45,13 +43,13 @@ class SecondScreenViewController: UIViewController {
 extension SecondScreenViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        secondVCConfigurator.nonLocalDict.keys.count
+        configuration?.nonLocalDict.keys.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell") as? MyTableViewCell {
             cell.delegate = self
-            if secondVCConfigurator.nonLocalDict[indexPath.row] == false {
+            if configuration?.nonLocalDict[indexPath.row] == false {
                 cell.configure(with: false)
             } else {
                 cell.configure(with: true)
@@ -88,9 +86,9 @@ extension SecondScreenViewController: SwitchStatmentDelegate {
     func showSwitchState(cell: MyTableViewCell, switchState: Bool){
         guard let numberOfRow = delegateTestTableView.indexPath(for: cell)?.row else { return }
         
-        secondVCConfigurator.nonLocalDict[numberOfRow] = switchState
+        configuration?.nonLocalDict[numberOfRow] = switchState
+        delegate?.configureTextView(text: configuration?.nonLocalDict ?? [:])
         
-        delegate?.configureTextView(text: secondVCConfigurator.nonLocalDict)
         
     }
     

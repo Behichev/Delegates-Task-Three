@@ -26,4 +26,10 @@ class MyTableViewCell: UITableViewCell {
         delegate?.showSwitchState(cell: self, switchState: mySwitch.isOn)
     }
     
+    @IBAction func switchChanged(_ sender: Any) {
+        
+    }
 }
+
+//MARK: - CheckSwitchStatementDelegate
+

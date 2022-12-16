@@ -6,11 +6,15 @@
 //
 
 import UIKit
-
+protocol TestSwitchDelegate {
+    func testSwitchValueChanged(_ : UISwitch)
+}
 class FirstScreenViewController: UIViewController {
 
     @IBOutlet weak var myTestTextView: UITextView!
     @IBOutlet weak var myTestLabel: UILabel!
+    
+    var delegate: TestSwitchDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +47,7 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
         var textArray: [String] = []
         
         for (key, value) in text {
-            textArray.append("\(key). \(value)")
+            textArray.append("\(key). \(del)")
         }
 
         var textElement = ""

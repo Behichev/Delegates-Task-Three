@@ -18,14 +18,12 @@ class SecondScreenViewController: UIViewController {
     @IBOutlet weak var myTextField: UITextField!
     
     var delegate: SecondScreenViewControllerDelagate?
-    var testArray: [String] = []
     var nonLocalDict: [Int:String] = [0:"off", 1:"off", 2:"off", 3:"off", 4:"off", 5:"off", 6:"off", 7:"off", 8:"off", 9:"off"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         delegateTestTableView.dataSource = self
         myTextField.delegate = self
-        
     }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
@@ -89,7 +87,6 @@ extension SecondScreenViewController: SwitchStatmentDelegate {
         
         nonLocalDict[numberOfRow] = mySwitch
         print(nonLocalDict)
-        
         
         delegate?.configureTextView(text: nonLocalDict)
         

@@ -29,6 +29,10 @@ class FirstScreenViewController: UIViewController {
             if let secondVC = segue.destination as? SecondScreenViewController {
                 secondVC.delegate = self
                 secondVC.nonLocalDict = dict
+                if myTestLabel.text != nil {
+                    secondVC.textForTexfield = myTestLabel.text
+                }
+                
             }
         }
     }
@@ -54,7 +58,7 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
 
         var textElement = ""
        
-        for a in textArray.sorted(by: {$0 < $1}) {
+        for a in textArray {
             textElement =  textElement + a + "\n"
         }
         

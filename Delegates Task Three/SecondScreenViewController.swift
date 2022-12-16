@@ -21,10 +21,16 @@ class SecondScreenViewController: UIViewController {
     
     var nonLocalDict: [Int:String] = [:]
     
+    var textForTexfield: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         delegateTestTableView.dataSource = self
         myTextField.delegate = self
+        if let textForTexfield {
+            myTextField.text = textForTexfield
+        }
+        
     }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
@@ -44,7 +50,7 @@ extension SecondScreenViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell") as? MyTableViewCell {
             cell.delegate = self
-            let newArray = Array(nonLocalDict.values).sorted(by: { $0 < $1 })
+            let newArray = Array(nonLocalDict.values)
             let value = newArray[indexPath.row]
             if value == "Off" {
                 cell.mySwitch.setOn(false, animated: true)

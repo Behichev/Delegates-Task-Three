@@ -44,15 +44,14 @@ class SecondScreenViewController: UIViewController {
 extension SecondScreenViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        nonLocalDict.keys.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell") as? MyTableViewCell {
             cell.delegate = self
-            let newArray = Array(nonLocalDict.values)
-            let value = newArray[indexPath.row]
-            if value == "Off" {
+            
+            if nonLocalDict[indexPath.row] == "Off" {
                 cell.mySwitch.setOn(false, animated: true)
             } else {
                 cell.mySwitch.setOn(true, animated: true)

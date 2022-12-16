@@ -58,7 +58,7 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
 
         var textElement = ""
        
-        for a in textArray {
+        for a in textArray.sorted(by: { $0 < $1 }) {
             textElement =  textElement + a + "\n"
         }
         

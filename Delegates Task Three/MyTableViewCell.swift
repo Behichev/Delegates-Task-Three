@@ -13,13 +13,21 @@ protocol SwitchStatmentDelegate {
 
 class MyTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var mySwitch: UISwitch!
-    
+    @IBOutlet weak private var mySwitch: UISwitch!
+ 
     var delegate: SwitchStatmentDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        
+    }
+   
+    func configure(with state: Bool) {
+            if state {
+                mySwitch.setOn(true, animated: true)
+            } else {
+                mySwitch.setOn(false, animated: true)
+            }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -9,17 +9,15 @@ import UIKit
 
 class FirstScreenViewController: UIViewController {
 
-    @IBOutlet weak var myTestTextView: UITextView!
-    @IBOutlet weak var myTestLabel: UILabel!
-    
-    var dict: [Int:Bool] = [
-        0:false, 1:false, 2:false, 3:false, 4:false, 5:false, 6:false, 7:false, 8:false, 9:false
-    ]
+    @IBOutlet weak private var myTestTextView: UITextView!
+    @IBOutlet weak private var myTestLabel: UILabel!
    
+    var firstVCConfigurator = FirstScreenViewControllerConfigurator()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     @IBAction func goButtonPressed(_ sender: UIButton) {
         self.performSegue(withIdentifier: "goToSecondScreen", sender: self)
     }
@@ -28,11 +26,10 @@ class FirstScreenViewController: UIViewController {
         if segue.identifier == "goToSecondScreen" {
             if let secondVC = segue.destination as? SecondScreenViewController {
                 secondVC.delegate = self
-                secondVC.nonLocalDict = dict
+                secondVC.secondVCConfigurator.nonLocalDict = firstVCConfigurator.dictionary
                 if myTestLabel.text != nil {
-                    secondVC.textForTexfield = myTestLabel.text
+                    secondVC.secondVCConfigurator.textForTexfield = myTestLabel.text
                 }
-                
             }
         }
     }
@@ -50,9 +47,9 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
     func configureTextView(text: [Int:Bool]) {
         var textArray: [String] = []
        
-        dict = text
+        firstVCConfigurator.dictionary = text
         
-        for (key, value) in dict {
+        for (key, value) in firstVCConfigurator.dictionary {
             if value {
                 textArray.append("\(key). is On")
             } else {

@@ -12,20 +12,24 @@ class FirstScreenViewController: UIViewController {
     @IBOutlet weak private var myTestTextView: UITextView!
     @IBOutlet weak private var myTestLabel: UILabel!
     
-    private var switchStateDictionary = [
-        0:false, 1:false, 2:false, 3:false, 4:false, 5:false, 6:false, 7:false, 8:false, 9:false
-    ]
+    private var switchStateDictionary: [Int:Bool] = [:]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        for i in 0...9 {
+            switchStateDictionary[i] = false
+        }
+        
     }
     
     @IBAction func goButtonPressed(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "goToSecondScreen", sender: self)
+        self.performSegue(withIdentifier: AppConstants.Identifiers.segueIdentifier, sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToSecondScreen" {
+        if segue.identifier == AppConstants.Identifiers.segueIdentifier {
             if let secondVC = segue.destination as? SecondScreenViewController {
                 secondVC.delegate = self
                 let configuration = SecondViewControllerConfiguration(nonLocalDict: switchStateDictionary,
@@ -45,26 +49,15 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
         myTestLabel.text = message
     }
     
-    func configureTextView(text: [Int:Bool]) {
-        var textArray: [String] = []
-        
-        switchStateDictionary = text
-        
-        for (key, value) in switchStateDictionary {
-            if value {
-                textArray.append("\(key). is On")
-            } else {
-                textArray.append("\(key). is Off")
-            }
-            
-        }
-        
+    func configureTextView(dictionary: [Int:Bool]) {
+        switchStateDictionary = dictionary
         var textElement = ""
         
-        for a in textArray.sorted(by: { $0 < $1 }) {
-            textElement =  textElement + a + "\n"
+        for key in switchStateDictionary.keys.sorted(by: <) {
+            let textValue = switchStateDictionary[key]! ? "ON" : "OFF"
+            textElement += "\(key): \(textValue)\n"
         }
-        
+            
         myTestTextView.text = textElement
     }
     

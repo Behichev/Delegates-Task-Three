@@ -9,7 +9,7 @@ import UIKit
 
 protocol SecondScreenViewControllerDelagate {
     func sendMessageToLabel(message: String)
-    func configureTextView(text: [Int:Bool])
+    func configureTextView(dictionary: [Int:Bool])
 }
 
 class SecondScreenViewController: UIViewController {
@@ -47,7 +47,7 @@ extension SecondScreenViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell") as? MyTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: AppConstants.Identifiers.cellIdentifier) as? MyTableViewCell {
             cell.delegate = self
             if let state = configuration?.nonLocalDict[indexPath.row] {
                 cell.configure(with: state, for: indexPath.row)
@@ -82,7 +82,7 @@ extension SecondScreenViewController: UITextFieldDelegate {
 extension SecondScreenViewController: SwitchStatmentDelegate {
     func changeSwitchState(index: Int, switchState: Bool) {
         configuration?.nonLocalDict[index] = switchState
-        delegate?.configureTextView(text: configuration?.nonLocalDict ?? [:])
+        delegate?.configureTextView(dictionary: configuration?.nonLocalDict ?? [:])
     }
     
 }

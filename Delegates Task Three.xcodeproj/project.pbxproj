@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2322F10C294F99D30063C823 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2322F10B294F99D30063C823 /* AppConstants.swift */; };
 		233962B4294CF7860053EE83 /* SecondViewControllerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233962B3294CF7860053EE83 /* SecondViewControllerConfiguration.swift */; };
 		23855BF62948793000FCFE07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23855BF52948793000FCFE07 /* AppDelegate.swift */; };
 		23855BF82948793000FCFE07 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23855BF72948793000FCFE07 /* SceneDelegate.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2322F10B294F99D30063C823 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		233962B3294CF7860053EE83 /* SecondViewControllerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewControllerConfiguration.swift; sourceTree = "<group>"; };
 		23855BF22948793000FCFE07 /* Delegates Task Three.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Delegates Task Three.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23855BF52948793000FCFE07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				23855C0929487A2800FCFE07 /* SecondScreenViewController.swift */,
 				233962B3294CF7860053EE83 /* SecondViewControllerConfiguration.swift */,
 				23855C0B2948B47600FCFE07 /* MyTableViewCell.swift */,
+				2322F10B294F99D30063C823 /* AppConstants.swift */,
 				23855BFB2948793000FCFE07 /* Main.storyboard */,
 				23855BFE2948793300FCFE07 /* Assets.xcassets */,
 				23855C002948793300FCFE07 /* LaunchScreen.storyboard */,
@@ -151,6 +154,7 @@
 				23855BFA2948793000FCFE07 /* FirstScreenViewController.swift in Sources */,
 				23855BF62948793000FCFE07 /* AppDelegate.swift in Sources */,
 				233962B4294CF7860053EE83 /* SecondViewControllerConfiguration.swift in Sources */,
+				2322F10C294F99D30063C823 /* AppConstants.swift in Sources */,
 				23855C0C2948B47600FCFE07 /* MyTableViewCell.swift in Sources */,
 				23855BF82948793000FCFE07 /* SceneDelegate.swift in Sources */,
 			);

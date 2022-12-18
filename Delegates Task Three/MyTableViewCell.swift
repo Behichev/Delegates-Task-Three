@@ -12,9 +12,9 @@ protocol SwitchStatmentDelegate {
 }
 
 class MyTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak private var mySwitch: UISwitch!
- 
+    
     var delegate: SwitchStatmentDelegate?
     
     private var cellIndex: Int?
@@ -23,19 +23,15 @@ class MyTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
     }
-   
+    
     func configure(with state: Bool, for index: Int) {
-            if state {
-                mySwitch.setOn(state, animated: true)
-            } else {
-                mySwitch.setOn(state, animated: true)
-            }
+        mySwitch.setOn(state, animated: true)
         cellIndex = index
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-       
+        
     }
     
     @IBAction private func valueChanged(_ sender: UISwitch) {

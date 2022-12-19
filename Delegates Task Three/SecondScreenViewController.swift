@@ -32,10 +32,9 @@ class SecondScreenViewController: UIViewController {
         self.configuration = configuration
     }
     
-    @IBAction func backButtonPressed(_ sender: UIButton) {
+    @IBAction private func backButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true)
     }
-    
 }
 
 //MARK: - UITableView Data Source
@@ -43,21 +42,26 @@ class SecondScreenViewController: UIViewController {
 extension SecondScreenViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        configuration?.nonLocalDict.keys.count ?? 0
+        configuration?.switchStateDictionary.keys.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: AppConstants.Identifiers.cellIdentifier) as? MyTableViewCell {
             cell.delegate = self
-            if let state = configuration?.nonLocalDict[indexPath.row] {
-                cell.configure(with: state, for: indexPath.row)
+            if let state = configuration?.switchStateDictionary[indexPath.row] {
+                var title = ""
+                if state {
+                     title = "ON"
+                } else {
+                    title = "OFF"
+                }
+                let configuration = Item(id: indexPath.row, state: state, cellTitle: title, cellBackgroundColor: .red)
+                cell.configure(with: configuration)
             }
             return cell
         }
         return UITableViewCell()
     }
-    
-    
 }
 
 //MARK: - UITextField Delegate
@@ -74,17 +78,13 @@ extension SecondScreenViewController: UITextFieldDelegate {
             delegate?.sendMessageToLabel(message: text)
         }
     }
-    
 }
 
 //MARK: - SwitchStatmentDelegate
 
 extension SecondScreenViewController: SwitchStatmentDelegate {
-    func changeSwitchState(index: Int, switchState: Bool) {
-        configuration?.nonLocalDict[index] = switchState
-        delegate?.configureTextView(dictionary: configuration?.nonLocalDict ?? [:])
+    func changeSwitchState(index: Int, switchState: Bool, title: String) {
+        configuration?.switchStateDictionary[index] = switchState
+        delegate?.configureTextView(dictionary: configuration?.switchStateDictionary ?? [:])
     }
-    
 }
-
-

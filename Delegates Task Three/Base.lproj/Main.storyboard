@@ -96,14 +96,25 @@
                                                         <action selector="valueChanged:" destination="1w7-fl-DBH" eventType="valueChanged" id="0g4-3W-UMe"/>
                                                     </connections>
                                                 </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xfJ-Fl-9wO">
+                                                    <rect key="frame" x="340" y="7.9999999999999982" width="42" height="23.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="xfJ-Fl-9wO" secondAttribute="bottom" constant="8" id="Jp3-pZ-W9h"/>
                                                 <constraint firstItem="i7a-Em-jha" firstAttribute="top" secondItem="fso-fl-agE" secondAttribute="top" constant="4" id="Z0Q-GQ-mwg"/>
+                                                <constraint firstItem="xfJ-Fl-9wO" firstAttribute="top" secondItem="fso-fl-agE" secondAttribute="top" constant="8" id="ZZh-8E-cwc"/>
                                                 <constraint firstItem="i7a-Em-jha" firstAttribute="leading" secondItem="fso-fl-agE" secondAttribute="leading" constant="16" id="iCh-oc-eHG"/>
                                                 <constraint firstAttribute="bottom" secondItem="i7a-Em-jha" secondAttribute="bottom" constant="4" id="oYc-xw-v5b"/>
+                                                <constraint firstAttribute="trailing" secondItem="xfJ-Fl-9wO" secondAttribute="trailing" constant="8" id="qvN-Zf-w4Y"/>
+                                                <constraint firstItem="xfJ-Fl-9wO" firstAttribute="leading" secondItem="i7a-Em-jha" secondAttribute="trailing" constant="275" id="wyi-q8-KCm"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="cellTitile" destination="xfJ-Fl-9wO" id="QRW-Og-QJF"/>
                                             <outlet property="mySwitch" destination="i7a-Em-jha" id="BVt-yx-A8V"/>
                                         </connections>
                                     </tableViewCell>

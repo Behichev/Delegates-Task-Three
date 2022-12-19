@@ -12,5 +12,4 @@ struct AppConstants {
         static let segueIdentifier = "goToSecondScreen"
         static let cellIdentifier = "MyCell"
     }
-    
 }

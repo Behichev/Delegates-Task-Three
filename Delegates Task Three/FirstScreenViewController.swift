@@ -14,17 +14,16 @@ class FirstScreenViewController: UIViewController {
     
     private var switchStateDictionary: [Int:Bool] = [:]
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        for i in 0...9 {
-            switchStateDictionary[i] = false
+        
+        for value in 0...9 {
+            switchStateDictionary[value] = false
         }
         
     }
     
-    @IBAction func goButtonPressed(_ sender: UIButton) {
+    @IBAction private func goButtonPressed(_ sender: UIButton) {
         self.performSegue(withIdentifier: AppConstants.Identifiers.segueIdentifier, sender: self)
     }
     
@@ -32,13 +31,12 @@ class FirstScreenViewController: UIViewController {
         if segue.identifier == AppConstants.Identifiers.segueIdentifier {
             if let secondVC = segue.destination as? SecondScreenViewController {
                 secondVC.delegate = self
-                let configuration = SecondViewControllerConfiguration(nonLocalDict: switchStateDictionary,
+                let configuration = SecondViewControllerConfiguration(switchStateDictionary: switchStateDictionary,
                                                                       textForTexfield: myTestLabel.text ?? "Label")
                 secondVC.configure(with: configuration)
             }
         }
     }
-    
 }
 
 //MARK: - SecondScreenViewControllerDelegate
@@ -57,8 +55,6 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
             let textValue = switchStateDictionary[key]! ? "ON" : "OFF"
             textElement += "\(key): \(textValue)\n"
         }
-            
         myTestTextView.text = textElement
     }
-    
 }

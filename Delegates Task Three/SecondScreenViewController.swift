@@ -33,7 +33,7 @@ class SecondScreenViewController: UIViewController {
     func configure(with configuration: SecondViewControllerConfiguration) {
         self.configuration = configuration
         
-        items = configuration.switchStateDictionary.map({
+        let confgItems = configuration.switchStateDictionary.map({
             var cellColor: UIColor = .red
             if $0.value {
                 cellTitle = "ON"
@@ -42,6 +42,7 @@ class SecondScreenViewController: UIViewController {
                 cellTitle = "OFF"
             }
             return ItemState(id: $0.key, state: $0.value, cellTitle: cellTitle, cellBackgroundColor: cellColor)})
+        items = confgItems.sorted(by: {$0.id < $1.id })
         
     }
     
@@ -89,6 +90,7 @@ extension SecondScreenViewController: UITextFieldDelegate {
 extension SecondScreenViewController: SwitchStatmentDelegate {
     func changeSwitchState(index: Int, switchState: Bool) {
         items[index].state = switchState
+        configuration?.switchStateDictionary[index] = switchState
         delegate?.configureTextView(dictionary: configuration?.switchStateDictionary ?? [:])
     }
 }

@@ -42,6 +42,7 @@ class SecondScreenViewController: UIViewController {
                 cellTitle = "OFF"
             }
             return ItemState(id: $0.key, state: $0.value, cellTitle: cellTitle, cellBackgroundColor: cellColor)})
+        
     }
     
     @IBAction private func backButtonPressed(_ sender: UIButton) {
@@ -54,14 +55,13 @@ class SecondScreenViewController: UIViewController {
 extension SecondScreenViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        configuration?.switchStateDictionary.keys.count ?? 0
+        items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: AppConstants.Identifiers.cellIdentifier) as? MyTableViewCell {
             cell.delegate = self
             cell.configure(with: items[indexPath.row])
-            cell.backgroundColor = items[indexPath.row].cellBackgroundColor
             return cell
         }
         return UITableViewCell()
@@ -87,8 +87,8 @@ extension SecondScreenViewController: UITextFieldDelegate {
 //MARK: - SwitchStatmentDelegate
 
 extension SecondScreenViewController: SwitchStatmentDelegate {
-    func changeSwitchState(index: Int, switchState: Bool, title: String, color: UIColor) {
-        configuration?.switchStateDictionary[index] = switchState
+    func changeSwitchState(index: Int, switchState: Bool) {
+        items[index].state = switchState
         delegate?.configureTextView(dictionary: configuration?.switchStateDictionary ?? [:])
     }
 }

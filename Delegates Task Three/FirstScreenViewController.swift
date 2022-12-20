@@ -17,7 +17,7 @@ class FirstScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for value in 0...9 {
+        for value in 0...99 {
             switchStateDictionary[value] = false
         }
         

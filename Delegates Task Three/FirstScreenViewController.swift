@@ -31,9 +31,12 @@ class FirstScreenViewController: UIViewController {
         if segue.identifier == AppConstants.Identifiers.segueIdentifier {
             if let secondVC = segue.destination as? SecondScreenViewController {
                 secondVC.delegate = self
-                let configuration = SecondViewControllerConfiguration(switchStateDictionary: switchStateDictionary,
-                                                                      textForTexfield: myTestLabel.text ?? "Label")
-                secondVC.configure(with: configuration)
+                if let text = myTestLabel.text {
+                    let configuration = SecondViewControllerConfiguration(switchStateDictionary: switchStateDictionary,
+                                                                          textForTexfield: text)
+                    secondVC.configure(with: configuration)
+                }
+                
             }
         }
     }

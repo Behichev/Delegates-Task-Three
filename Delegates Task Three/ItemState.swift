@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Item {
+struct ItemState {
     var id: Int
     var state: Bool
     var cellTitle: String

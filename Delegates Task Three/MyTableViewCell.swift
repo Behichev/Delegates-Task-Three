@@ -10,7 +10,7 @@ import UIKit
 //MARK: - Protocol
 
 protocol SwitchStatmentDelegate {
-    func changeSwitchState(index: Int, switchState: Bool, title: String)
+    func changeSwitchState(index: Int, switchState: Bool, title: String, color: UIColor)
 }
 
 class MyTableViewCell: UITableViewCell {
@@ -31,7 +31,7 @@ class MyTableViewCell: UITableViewCell {
     
     //MARK: - Functions
     
-    func configure(with item: Item) {
+    func configure(with item: ItemState) {
         mySwitch.setOn(item.state, animated: true)
         cellIndex = item.id
         cellTitile.text = item.cellTitle
@@ -46,7 +46,7 @@ class MyTableViewCell: UITableViewCell {
     
     @IBAction private func valueChanged(_ sender: UISwitch) {
         if let cellIndex {
-            delegate?.changeSwitchState(index: cellIndex, switchState: mySwitch.isOn, title: cellTitile.text!)
+            delegate?.changeSwitchState(index: cellIndex, switchState: mySwitch.isOn, title: cellTitile.text!, color: cellBackgroundColor)
         }
         
     }

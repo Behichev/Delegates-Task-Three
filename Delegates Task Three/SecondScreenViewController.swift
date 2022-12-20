@@ -20,6 +20,7 @@ class SecondScreenViewController: UIViewController {
     var delegate: SecondScreenViewControllerDelagate?
     
     private var configuration: SecondViewControllerConfiguration?
+    private var items: [ItemState] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,17 @@ class SecondScreenViewController: UIViewController {
     
     func configure(with configuration: SecondViewControllerConfiguration) {
         self.configuration = configuration
+        items = configuration.switchStateDictionary.map({
+            var title = ""
+            var cellColor: UIColor = .red
+            if $0.value {
+                title = "ON"
+                cellColor = .green
+            } else {
+                title = "OFF"
+                cellColor = .red
+            }
+            return ItemState(id: $0.key, state: $0.value, cellTitle: title, cellBackgroundColor: cellColor)})
     }
     
     @IBAction private func backButtonPressed(_ sender: UIButton) {
@@ -48,16 +60,7 @@ extension SecondScreenViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: AppConstants.Identifiers.cellIdentifier) as? MyTableViewCell {
             cell.delegate = self
-            if let state = configuration?.switchStateDictionary[indexPath.row] {
-                var title = ""
-                if state {
-                     title = "ON"
-                } else {
-                    title = "OFF"
-                }
-                let configuration = Item(id: indexPath.row, state: state, cellTitle: title, cellBackgroundColor: .red)
-                cell.configure(with: configuration)
-            }
+            cell.configure(with: items[indexPath.row])
             return cell
         }
         return UITableViewCell()
@@ -83,7 +86,7 @@ extension SecondScreenViewController: UITextFieldDelegate {
 //MARK: - SwitchStatmentDelegate
 
 extension SecondScreenViewController: SwitchStatmentDelegate {
-    func changeSwitchState(index: Int, switchState: Bool, title: String) {
+    func changeSwitchState(index: Int, switchState: Bool, title: String, color: UIColor) {
         configuration?.switchStateDictionary[index] = switchState
         delegate?.configureTextView(dictionary: configuration?.switchStateDictionary ?? [:])
     }

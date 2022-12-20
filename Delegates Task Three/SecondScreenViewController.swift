@@ -21,6 +21,7 @@ class SecondScreenViewController: UIViewController {
     
     private var configuration: SecondViewControllerConfiguration?
     private var items: [ItemState] = []
+    private var cellTitle = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,17 +32,16 @@ class SecondScreenViewController: UIViewController {
     
     func configure(with configuration: SecondViewControllerConfiguration) {
         self.configuration = configuration
+        
         items = configuration.switchStateDictionary.map({
-            var title = ""
             var cellColor: UIColor = .red
             if $0.value {
-                title = "ON"
+                cellTitle = "ON"
                 cellColor = .green
             } else {
-                title = "OFF"
-                cellColor = .red
+                cellTitle = "OFF"
             }
-            return ItemState(id: $0.key, state: $0.value, cellTitle: title, cellBackgroundColor: cellColor)})
+            return ItemState(id: $0.key, state: $0.value, cellTitle: cellTitle, cellBackgroundColor: cellColor)})
     }
     
     @IBAction private func backButtonPressed(_ sender: UIButton) {
@@ -61,6 +61,7 @@ extension SecondScreenViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: AppConstants.Identifiers.cellIdentifier) as? MyTableViewCell {
             cell.delegate = self
             cell.configure(with: items[indexPath.row])
+            cell.backgroundColor = items[indexPath.row].cellBackgroundColor
             return cell
         }
         return UITableViewCell()

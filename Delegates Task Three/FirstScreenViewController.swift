@@ -12,13 +12,13 @@ class FirstScreenViewController: UIViewController {
     @IBOutlet weak private var myTestTextView: UITextView!
     @IBOutlet weak private var myTestLabel: UILabel!
     
-    private var switchStateDictionary: [Int:Bool] = [:]
+    private var bunchOfSwitchStates: [Bool] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for value in 0...99 {
-            switchStateDictionary[value] = false
+        for value in 0...9 {
+            bunchOfSwitchStates = [false]
         }
         
     }
@@ -32,7 +32,7 @@ class FirstScreenViewController: UIViewController {
             if let secondVC = segue.destination as? SecondScreenViewController {
                 secondVC.delegate = self
                 if let text = myTestLabel.text {
-                    let configuration = SecondViewControllerConfiguration(switchStateDictionary: switchStateDictionary,
+                    let configuration = SecondViewControllerConfiguration(bunchOfSwiftStates: bunchOfSwitchStates,
                                                                           textForTexfield: text)
                     secondVC.configure(with: configuration)
                 }
@@ -50,13 +50,13 @@ extension FirstScreenViewController: SecondScreenViewControllerDelagate {
         myTestLabel.text = message
     }
     
-    func configureTextView(dictionary: [Int:Bool]) {
-        switchStateDictionary = dictionary
+    func configureTextView(array: [Bool]) {
+        bunchOfSwitchStates = array
         var textElement = ""
         
-        for key in switchStateDictionary.keys.sorted(by: <) {
-            let textValue = switchStateDictionary[key]! ? "ON" : "OFF"
-            textElement += "\(key): \(textValue)\n"
+        for (element,index) in bunchOfSwitchStates.enumerated() {
+            let textValue = (element != 0) ? "ON" : "OFF"
+            textElement += "\(index): \(textValue)\n"
         }
         myTestTextView.text = textElement
     }

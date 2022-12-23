@@ -8,6 +8,6 @@
 import Foundation
 
 struct SecondViewControllerConfiguration {
-    var switchStateDictionary: [Int:Bool]
+    var bunchOfSwiftStates: [Bool]
     var textForTexfield: String
 }

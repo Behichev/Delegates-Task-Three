@@ -9,7 +9,7 @@ import UIKit
 
 protocol SecondScreenViewControllerDelagate {
     func sendMessageToLabel(message: String)
-    func configureTextView(dictionary: [Int:Bool])
+    func configureTextView(array: [Bool])
 }
 
 class SecondScreenViewController: UIViewController {
@@ -32,17 +32,17 @@ class SecondScreenViewController: UIViewController {
     
     func configure(with configuration: SecondViewControllerConfiguration) {
         self.configuration = configuration
-        
-        let confgItems = configuration.switchStateDictionary.map({
+        let configureItemsArray = configuration.bunchOfSwiftStates.enumerated().map ({ (index, element) in
             var cellColor: UIColor = .red
-            if $0.value {
-                cellTitle = "ON"
+            if element {
                 cellColor = .green
+                cellTitle = "ON"
             } else {
                 cellTitle = "OFF"
             }
-            return ItemState(id: $0.key, state: $0.value, cellTitle: cellTitle, cellBackgroundColor: cellColor)})
-        items = confgItems.sorted(by: {$0.id < $1.id })
+            return ItemState(id: index, state: element, cellTitle: cellTitle, cellBackgroundColor: cellColor)
+        })
+        items = configureItemsArray
         
     }
     
@@ -90,7 +90,7 @@ extension SecondScreenViewController: UITextFieldDelegate {
 extension SecondScreenViewController: SwitchStatmentDelegate {
     func changeSwitchState(index: Int, switchState: Bool) {
         items[index].state = switchState
-        configuration?.switchStateDictionary[index] = switchState
-        delegate?.configureTextView(dictionary: configuration?.switchStateDictionary ?? [:])
+        configuration?.bunchOfSwiftStates[index] = switchState
+        delegate?.configureTextView(array: configuration?.bunchOfSwiftStates ?? [])
     }
 }

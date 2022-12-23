@@ -14,11 +14,13 @@ protocol SwitchStatmentDelegate {
 }
 
 class MyTableViewCell: UITableViewCell {
-  
+    
     //MARK: - Outlets
     
     @IBOutlet weak private var cellTitile: UILabel!
     @IBOutlet weak private var mySwitch: UISwitch!
+    
+    //MARK: - Variables
     
     var delegate: SwitchStatmentDelegate?
     
@@ -46,6 +48,5 @@ class MyTableViewCell: UITableViewCell {
         if let cellIndex {
             delegate?.changeSwitchState(index: cellIndex, switchState: mySwitch.isOn)
         }
-        
     }
 }

@@ -9,19 +9,26 @@ import UIKit
 
 protocol SecondScreenViewControllerDelagate {
     func sendMessageToLabel(message: String)
-    func configureTextView(array: [Bool])
+    func switchStateDidChange(state: Bool, index: Int)
 }
 
 class SecondScreenViewController: UIViewController {
     
+    //MARK: - Outlets
+    
     @IBOutlet weak private var delegateTestTableView: UITableView!
     @IBOutlet weak private var myTextField: UITextField!
+   
+    //MARK: - Variables
     
     var delegate: SecondScreenViewControllerDelagate?
     
     private var configuration: SecondViewControllerConfiguration?
     private var items: [ItemState] = []
     private var cellTitle = ""
+    private var cellColor: UIColor = .red
+    
+    //MARK: - ViewController Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +37,11 @@ class SecondScreenViewController: UIViewController {
         myTextField.text = configuration?.textForTexfield
     }
     
+    //MARK: - Functions
+    
     func configure(with configuration: SecondViewControllerConfiguration) {
         self.configuration = configuration
         let configureItemsArray = configuration.bunchOfSwiftStates.enumerated().map ({ (index, element) in
-            var cellColor: UIColor = .red
             if element {
                 cellColor = .green
                 cellTitle = "ON"
@@ -43,8 +51,9 @@ class SecondScreenViewController: UIViewController {
             return ItemState(id: index, state: element, cellTitle: cellTitle, cellBackgroundColor: cellColor)
         })
         items = configureItemsArray
-        
     }
+    
+    //MARK: - Actions
     
     @IBAction private func backButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true)
@@ -62,7 +71,9 @@ extension SecondScreenViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: AppConstants.Identifiers.cellIdentifier) as? MyTableViewCell {
             cell.delegate = self
-            cell.configure(with: items[indexPath.row])
+            let items = items[indexPath.row]
+            cell.configure(with: items)
+            cell.backgroundColor = items.cellBackgroundColor
             return cell
         }
         return UITableViewCell()
@@ -91,6 +102,6 @@ extension SecondScreenViewController: SwitchStatmentDelegate {
     func changeSwitchState(index: Int, switchState: Bool) {
         items[index].state = switchState
         configuration?.bunchOfSwiftStates[index] = switchState
-        delegate?.configureTextView(array: configuration?.bunchOfSwiftStates ?? [])
+        delegate?.switchStateDidChange(state: switchState, index: index)
     }
 }
